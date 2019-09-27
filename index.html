@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        img{
+            border:0;
+        }
+        ol, ul ,li{list-style: none;}
+        .cl{
+            clear:both;
+        }
+        .fl{
+            float:left;
+        }
+        .fr{
+            float:right;
+        }
+        #slide{
+            width: 1000px;
+            height: 375px;
+            margin: 0 auto;
+        }
+        #img{
+            width: 1000px;
+            height: 375px;
+            overflow:hidden;
+        }
+        #arrow{
+            height: 50px;
+            position:relative;
+            top:-200px;
+            color: #fff;
+        }
+        #previous,#next{
+            width: 30px;
+            height: 50px;
+            background-color: rgba(0,0,0,0.1);
+            font-size: 40px;
+            line-height: 50px;
+            text-align: center;
+            /*cursor: pointer;*/
+        }
+        #previous{
+            float: left;
+        }
+        #next{
+            float: right;
+        }
+        #circle{
+            height: 20px;
+            position:relative;
+            top:-75px;
+            overflow:hidden;
+        }
+        #circle h1{
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #fff;
+            font-size: 16px;
+            text-align: left;
+            line-height: 20px;
+            cursor:pointer;
+        }
+        #dian{
+            height: 20px;
+            position:relative;
+            top:-95px;
+            right:-800px;
+            overflow:hidden;
+        }
+        #dian h1{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #000;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            line-height: 20px;
+            float: left;
+            margin: 0 0 0 3px;
+            cursor:pointer;
+
+        }
+        #dian h1.red{
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div id="slide">
+        <div id="img">
+            <img src="images/师大1.jpg"/>
+            <img src="images/师大2.jpg"/>
+            <img src="images/师大3.jpg"/>
+            <img src="images/师大4.jpg"/>
+            <img src="images/师大5.jpg"/>
+            <img src="images/师大6.jpg"/>
+        </div>
+        <div id="arrow">
+            <div id="previous"><</div>
+            <div id="next">></div>
+        </div>
+        <div id="circle">
+            <h1>出彩师大人——于忠民</h1>
+            <h1>我校在第十三届全球孔子学院大会上荣获“孔..</h1>
+            <h1>我校举办第五届校园马拉松赛</h1>
+            <h1>第六届驻徐高校大学生传承普及徐州历史</h1>
+            <h1>我校在2018年“创青春”全国大学生创业大赛</h1>
+            <h1>我校在2019U.S.News世界大学排行榜排名实现..</h1>
+        </div>
+        <div id="dian">
+            <h1 class="red">1</h1>
+            <h1>2</h1>
+            <h1>3</h1>
+            <h1>4</h1>
+            <h1>5</h1>
+            <h1>6</h1>
+        </div>
+    </div>
+    <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+         var n=0;//记录当前图片序号
+        function slideImg(){
+            n++;
+            if(n>$("#circle h1").length-1){
+                n=0;
+            }
+            $("#img img").hide();//隐藏所有图片
+            $("#img img").eq(n).fadeIn(500);//显示索引图片
+            $("#circle h1").hide();//隐藏所有文字
+            $("#circle h1").eq(n).show();//显示n字幕出现
+            $("#dian h1").removeClass("red");//去掉所以red类
+            $("#dian h1").eq(n).addClass("red");//索引值加类
+        }
+        var interval=setInterval(slideImg,50000);//5秒自动翻页
+        $(document).ready(function() {
+            $("#dian h1").mouseover(function(event) {
+               n=$("#dian h1").index(this);//获取索引值
+               $("#img img").hide();//隐藏所有图片
+               $("#img img").eq(n).fadeIn(500);//显示索引图片
+               $("#circle h1").hide();//隐藏所有文字
+               $("#circle h1").eq(n).show();//显示n字幕出现
+               $("#dian h1").removeClass("red");//去掉所以red类
+               $("#dian h1").eq(n).addClass("red");//索引值加类
+            });
+            //点击左箭头图片切换
+            $("#previous").click(function(event) {
+               n--;
+               if(n<0){
+                    n=$("#circle h1").length-1;
+               }
+               $("#img img").hide();//隐藏所有图片
+               $("#img img").eq(n).fadeIn(500);//显示索引图片
+               $("#circle h1").hide();//隐藏所有文字
+               $("#circle h1").eq(n).show();//显示n字幕出现
+               $("#dian h1").removeClass("red");//去掉所以red类
+               $("#dian h1").eq(n).addClass("red");//索引值加类
+            });
+            $("#next").click(function(event) {
+               n++;
+               if(n>$("#circle h1").length-1){
+                    n=0;
+               }
+               $("#img img").hide();//隐藏所有图片
+               $("#img img").eq(n).fadeIn(500);//显示索引图片
+               $("#circle h1").hide();//隐藏所有文字
+               $("#circle h1").eq(n).show();//显示n字幕出现
+               $("#dian h1").removeClass("red");//去掉所以red类
+               $("#dian h1").eq(n).addClass("red");//索引值加类
+            });
+        });
+    </script>
+</body>
+</html>
